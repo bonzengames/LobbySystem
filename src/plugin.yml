@@ -1,0 +1,11 @@
+name: LobbySystem
+version: 1.0
+author: WichtigesYT
+main: de.wichtigesyt.Main
+
+commands:
+  build:
+  set:
+  fly:
+  gm:
+  scoreboard:

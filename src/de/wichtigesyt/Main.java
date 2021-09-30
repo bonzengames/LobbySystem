@@ -1,15 +1,15 @@
 package de.wichtigesyt;
 
 import de.wichtigesyt.commands.*;
+import de.wichtigesyt.commands.money.*;
 import de.wichtigesyt.inventoryes.listeners.*;
 import de.wichtigesyt.listeners.*;
 import de.wichtigesyt.listeners.gadgets.*;
-import de.wichtigesyt.shop.DailyLoginReward;
-import de.wichtigesyt.utils.PlayerManager;
+import de.wichtigesyt.lizens.*;
+import de.wichtigesyt.manager.*;
+import de.wichtigesyt.shop.*;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.*;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,16 +27,10 @@ public class Main extends JavaPlugin {
 
     public ArrayList builders = new ArrayList();
     public ArrayList flyers = new ArrayList();
-    public ArrayList elytra = new ArrayList();
-
-    public ArrayList partikelWasser = new ArrayList();
-    public ArrayList partikelLava = new ArrayList();
-    public ArrayList partikelTnt = new ArrayList();
 
     public ArrayList nothing_Hider = new ArrayList();
     public ArrayList Yt_Hider = new ArrayList();
     public ArrayList all_Hider = new ArrayList();
-    public ArrayList Fish = new ArrayList();
 
     public static DailyLoginReward dailyLoginReward;
 
@@ -56,10 +50,14 @@ public class Main extends JavaPlugin {
     public static FileConfiguration config;
     public static File file;
 
+    public static MySQL mySQL;
+
     @Override
     public void onEnable() {
 
         instance = this;
+
+        checkLizens();
 
         regCommand();
         regEvents(Bukkit.getPluginManager());
@@ -81,6 +79,8 @@ public class Main extends JavaPlugin {
 
         PlayerManager.createPlayerFile();
 
+        TablistManager.setSb();
+
     }
 
     @Override
@@ -94,6 +94,10 @@ public class Main extends JavaPlugin {
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("gm").setExecutor(new GmCommand());
         getCommand("scoreboard").setExecutor(new ScoreboardCommand());
+        getCommand("pay").setExecutor(new PayCommand());
+        getCommand("money").setExecutor(new MoneyCommand());
+        getCommand("money-admin").setExecutor(new MoneyAdminCommand());
+        getCommand("pp").setExecutor(new PluginsCommand());
 
     }
 
@@ -114,6 +118,29 @@ public class Main extends JavaPlugin {
         pluginManager.registerEvents(new CommandListener(), this);
         pluginManager.registerEvents(new WeatherChangeListener(), this);
         pluginManager.registerEvents(new MoveListener(), this);
+        pluginManager.registerEvents(new ChatListener(), this);
+        pluginManager.registerEvents(new GadgetClickListener(), this);
+
+    }
+
+    private void checkLizens() {
+
+        LizensFile.createFile();
+        LizensFile.loadConfig();
+
+        if (!new LizensManager(LizensFile.lizens, "https://wichtigesyt.de/lizens/verify.php", this).register()) return;
+
+        FileManager fileManager = new FileManager();
+        fileManager.MySQLFile();
+
+        try {
+            mySQL = new MySQL(fileManager.mysql_ip, fileManager.mysql_port, fileManager.mysql_user, fileManager.mysql_password, fileManager.mysql_database);
+            Bukkit.getConsoleSender().sendMessage("§8[§7MySQL§8] §aVerbindung hergestellt");
+        } catch (Exception e) {
+            Bukkit.getConsoleSender().sendMessage("§8[§7MySQL§8] §cVerbindung konnte nicht hergestellt werden");
+        }
+
+        ScoreBoard.startupdate();
 
     }
 
@@ -183,26 +210,6 @@ public class Main extends JavaPlugin {
 
     public ArrayList getAll_Hider() {
         return all_Hider;
-    }
-
-    public ArrayList getElytra() {
-        return elytra;
-    }
-
-    public ArrayList getFish() {
-        return Fish;
-    }
-
-    public ArrayList getPartikelLava() {
-        return partikelLava;
-    }
-
-    public ArrayList getPartikelTnt() {
-        return partikelTnt;
-    }
-
-    public ArrayList getPartikelWasser() {
-        return partikelWasser;
     }
 
 }

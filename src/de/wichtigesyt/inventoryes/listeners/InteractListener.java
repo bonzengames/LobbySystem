@@ -1,6 +1,7 @@
 package de.wichtigesyt.inventoryes.listeners;
 
 import de.wichtigesyt.Main;
+import de.wichtigesyt.inventoryes.GadgetManager;
 import de.wichtigesyt.inventoryes.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -30,18 +31,18 @@ public class InteractListener implements Listener {
                 InventoryManager.compassInv(player);
 
             }
-            /*if (player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Profil")) {
+            if (player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6Profil")) {
 
                 event.setCancelled(true);
 
                 InventoryManager.profilInv(player);
 
-            }*/
+            }
             if (player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§eGadgets")) {
 
                 event.setCancelled(true);
 
-                InventoryManager.gadgetInv(player);
+                GadgetManager.gadgetInv(player);
 
             }
             if (player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§cSpieler Verstecker")) {

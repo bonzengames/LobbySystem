@@ -135,12 +135,6 @@ public class ShopManager {
 
     }
 
-    public static void clickUpgrade(){
-
-
-
-    }
-
     public static void onePremium(Player player) {
 
         Inventory inv = Bukkit.createInventory(null, 9*3, "§61 Monat Premium");

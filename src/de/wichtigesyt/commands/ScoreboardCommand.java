@@ -1,18 +1,14 @@
 package de.wichtigesyt.commands;
 
 import de.wichtigesyt.Main;
-import de.wichtigesyt.ScoreBoard;
+import de.wichtigesyt.manager.ScoreBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.imageio.stream.ImageInputStream;
-
 public class ScoreboardCommand implements CommandExecutor {
-
-    private String message = Main.getInstance().prefix + "§cBenutze /scoreboard reload";
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -25,7 +21,7 @@ public class ScoreboardCommand implements CommandExecutor {
 
                 if (args.length == 0) {
 
-                    player.sendMessage(message);
+                    player.sendMessage(Main.getInstance().prefix + "§cBenutze /scoreboard reload");
 
                 } else if (args.length == 1) {
 
@@ -41,7 +37,7 @@ public class ScoreboardCommand implements CommandExecutor {
 
                     } else {
 
-                        player.sendMessage(message);
+                        player.sendMessage(Main.getInstance().prefix + "§cBenutze /scoreboard reload");
 
                     }
 

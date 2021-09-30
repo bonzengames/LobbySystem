@@ -101,6 +101,21 @@ public class ItemManager {
 
     }
 
+    public static void clickBedWars(Player player) {
+
+        player.closeInventory();
+
+        World world = Bukkit.getWorld(Main.getInstance().getConfig().getString("BedWars.world"));
+        double x = Main.getInstance().getConfig().getDouble("BedWars.X");
+        double y = Main.getInstance().getConfig().getDouble("BedWars.Y");
+        double z = Main.getInstance().getConfig().getDouble("BedWars.Z");
+        float yaw = (float) Main.getInstance().getConfig().getDouble("BedWars.Yaw");
+        float pitch = (float) Main.getInstance().getConfig().getDouble("BedWars.Pitch");
+        Location loc = new Location(world, x, y, z, yaw, pitch);
+        player.teleport(loc);
+
+    }
+
     public static void clickCommingSoon(Player player) {
 
         player.closeInventory();
@@ -210,69 +225,6 @@ public class ItemManager {
             }
 
             player.sendMessage(Main.getInstance().prefix + "§aDu siehst jetzt niemanden mehr.");
-
-        }
-
-    }
-
-    public static void clickSpielzeug(Player player) {
-
-        player.closeInventory();
-
-        InventoryManager.gadget_gadgetInv(player);
-
-    }
-
-    public static void clickFish(Player player) {
-
-        player.closeInventory();
-
-        ItemStack fish = new ItemStack(Material.FISHING_ROD);
-        ItemMeta fishMeta = fish.getItemMeta();
-        fishMeta.setDisplayName("§bGrappling Hook");
-        fish.setItemMeta(fishMeta);
-
-        player.getInventory().setItem(3, fish);
-
-        Main.getInstance().getFish().add(player);
-
-    }
-
-    public static void clickKoepf(Player player) {
-
-        player.closeInventory();
-
-        InventoryManager.gadget_kopfInv(player);
-
-    }
-
-    public static void clickPartikel(Player player) {
-
-        player.closeInventory();
-
-        InventoryManager.gadget_partikelInv(player);
-
-    }
-
-    public static void clickGadgetDelete(Player player) {
-
-        player.closeInventory();
-
-        if (Main.getInstance().getElytra().contains(player)) {
-
-            Main.getInstance().getElytra().remove(player);
-
-            player.getInventory().clear();
-
-            InventoryManager.giveJoinInv(player);
-
-        } else if (Main.getInstance().getFish().contains(player)) {
-
-            Main.getInstance().getFish().remove(player);
-
-            player.getInventory().clear();
-
-            InventoryManager.giveJoinInv(player);
 
         }
 

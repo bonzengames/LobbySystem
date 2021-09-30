@@ -1,9 +1,11 @@
 package de.wichtigesyt.listeners;
 
 import de.wichtigesyt.Main;
-import de.wichtigesyt.ScoreBoard;
+import de.wichtigesyt.inventoryes.GadgetManager;
 import de.wichtigesyt.inventoryes.InventoryManager;
-import de.wichtigesyt.utils.PlayerManager;
+import de.wichtigesyt.manager.MySQLManager;
+import de.wichtigesyt.manager.ScoreBoard;
+import de.wichtigesyt.manager.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -13,12 +15,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.Iterator;
-
 public class JoinListener implements Listener {
 
-    private static int task;
-    private static int sek = 5;
+    MySQLManager moneyManager = new MySQLManager(Main.mySQL, "geld");
+    MySQLManager mySQLManager = new MySQLManager(Main.mySQL, "gagets");
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -44,42 +44,87 @@ public class JoinListener implements Listener {
 
         InventoryManager.giveJoinInv(player);
 
+        moneyManager.addPlayer(player);
+
         event.setJoinMessage("");
+
+        player.setLevel(2021);
 
         if (!PlayerManager.config.contains(player.getUniqueId().toString())) {
 
-            player.sendTitle("§c§lWillkomen", " §3§lAuf §4§lBonzen§5§lGames");
+            player.sendTitle("§c§lWillkommen", " §3§lAuf §4§lBonzen§5§lGames");
 
             PlayerManager.addPlayer(player);
 
         }
 
-        /*for (Player all : Bukkit.getOnlinePlayers()) {
+        for (Player all : Bukkit.getOnlinePlayers()) {
 
             ScoreBoard.setLobbyScore(all);
 
         }
 
-        task = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
-            @Override
-            public void run() {
+        getAktiveGagets(player);
 
-                if (sek == 0) {
+    }
 
-                    for (Player all : Bukkit.getOnlinePlayers()) {
+    private void getAktiveGagets(Player player) {
 
-                        ScoreBoard.setLobbyScore(all);
+        ///Schuhe
+        if (mySQLManager.getGadget(player, "schuhe_standard").equalsIgnoreCase("aktive")) {
 
-                    }
+            GadgetManager.clickStandartdSchuhe(player);
 
-                    Bukkit.getScheduler().cancelTask(task);
+        }
+        if (mySQLManager.getGadget(player, "schuhe_premium").equalsIgnoreCase("aktive")) {
 
-                }
+            GadgetManager.clickPremiumSchuhe(player);
 
-                sek--;
+        }
+        if (mySQLManager.getGadget(player, "schuhe_ultra").equalsIgnoreCase("aktive")) {
 
-            }
-        },0,20);*/
+            GadgetManager.clickUltraSchuhe(player);
+
+        }
+        if (mySQLManager.getGadget(player, "schuhe_team").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.clickTeamSchuhe(player);
+
+        }
+
+        ///partikel
+        if (mySQLManager.getGadget(player, "partikel_herz").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.clickHerz(player);
+
+        }
+        if (mySQLManager.getGadget(player, "partikel_water").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.clickWasser(player);
+
+        }
+        if (mySQLManager.getGadget(player, "partikel_lava").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.clickLava(player);
+
+        }
+        if (mySQLManager.getGadget(player, "partikel_tnt").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.clickTnt(player);
+
+        }
+
+        ///gadgets
+        if (mySQLManager.getGadget(player, "gadget_grappling").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.giveGrapplingItem(player);
+
+        }
+        if (mySQLManager.getGadget(player, "gadget_elytra").equalsIgnoreCase("aktive")) {
+
+            GadgetManager.giveElytraGadget(player);
+
+        }
 
     }
 

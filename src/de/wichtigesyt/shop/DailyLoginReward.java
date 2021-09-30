@@ -1,7 +1,7 @@
 package de.wichtigesyt.shop;
 
 import de.wichtigesyt.Main;
-import org.bukkit.Bukkit;
+import de.wichtigesyt.manager.MySQLManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class DailyLoginReward {
 
-    /*public static DailyLoginReward instance;
+    public static DailyLoginReward instance;
 
     public void setBelohnung(Player player) {
         FileConfiguration config = YamlConfiguration.loadConfiguration(getRewardFile());
@@ -23,9 +23,9 @@ public class DailyLoginReward {
             e.printStackTrace();
         }
 
-        CoinPlayer coinPlayer = CoinSystem.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
+        MySQLManager mySQLManager = new MySQLManager(Main.mySQL, "geld");
 
-        coinPlayer.addCoins(111);
+        mySQLManager.addMoney(player, "geld",200);
 
     }
 
@@ -63,5 +63,5 @@ public class DailyLoginReward {
 
     public static DailyLoginReward getInstance() {
         return instance;
-    }*/
+    }
 }

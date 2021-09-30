@@ -20,7 +20,7 @@ public class SetCommand implements CommandExecutor {
 
                 if (args.length == 0) {
 
-                    player.sendMessage(Main.getInstance().prefix + "§cBenutze /set <Spawn/CityBuild/Farmwelt/Nether/Survival/set>");
+                    player.sendMessage(Main.getInstance().prefix + "§cBenutze /set <Spawn/BedWars/Nether/Farmwelt/CityBuild/SkyBlock/Event>");
 
                 } else if (args.length == 1) {
 
@@ -35,6 +35,18 @@ public class SetCommand implements CommandExecutor {
                         Main.getInstance().saveConfig();
 
                         player.sendMessage(Main.getInstance().prefix + "§aDu hast den Spawn gesetzt");
+
+                    } else if (args[0].equalsIgnoreCase("bedwars")) {
+
+                        Main.getInstance().getConfig().set("BedWars.world", player.getWorld().getName());
+                        Main.getInstance().getConfig().set("BedWars.X", player.getLocation().getX());
+                        Main.getInstance().getConfig().set("BedWars.Y", player.getLocation().getY());
+                        Main.getInstance().getConfig().set("BedWars.Z", player.getLocation().getZ());
+                        Main.getInstance().getConfig().set("BedWars.Yaw", player.getLocation().getYaw());
+                        Main.getInstance().getConfig().set("BedWars.Pitch", player.getLocation().getPitch());
+                        Main.getInstance().saveConfig();
+
+                        player.sendMessage(Main.getInstance().prefix + "§aDu hast den Spawn für BedWars gesetzt");
 
                     } else if (args[0].equalsIgnoreCase("nether")) {
 
@@ -72,7 +84,7 @@ public class SetCommand implements CommandExecutor {
 
                         player.sendMessage(Main.getInstance().prefix + "§aDu hast den Spawn für CityBuild gesetzt");
 
-                    } else if (args[0].equalsIgnoreCase("Survival")) {
+                    } else if (args[0].equalsIgnoreCase("SkyBlock")) {
 
                         Main.getInstance().getConfig().set("GunGame.world", player.getWorld().getName());
                         Main.getInstance().getConfig().set("GunGame.X", player.getLocation().getX());
@@ -108,13 +120,13 @@ public class SetCommand implements CommandExecutor {
 
                     } else {
 
-                        player.sendMessage(Main.getInstance().prefix + "§cBenutze /set <Spawn/CityBuild/SkyBlock/Cores/GunGame>");
+                        player.sendMessage(Main.getInstance().prefix + "§cBenutze /set <Spawn/BedWars/Nether/Farmwelt/CityBuild/SkyBlock/Event>");
 
                     }
 
                 } else {
 
-                    player.sendMessage(Main.getInstance().prefix + "§cBenutze /set <Spawn/CityBuild/SkyBlock/Cores/GunGame>");
+                    player.sendMessage(Main.getInstance().prefix + "§cBenutze /set <Spawn/BedWars/Nether/Farmwelt/CityBuild/SkyBlock/Event>");
 
                 }
 

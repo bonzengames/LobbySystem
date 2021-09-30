@@ -1,5 +1,5 @@
 name: LobbySystem
-version: 1.0
+version: 2.2
 author: WichtigesYT
 main: de.wichtigesyt.Main
 
@@ -9,3 +9,7 @@ commands:
   fly:
   gm:
   scoreboard:
+  pay:
+  money:
+  money-admin:
+  pp:
